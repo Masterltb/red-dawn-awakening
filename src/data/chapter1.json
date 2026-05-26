@@ -1,0 +1,185 @@
+{
+  "nodes": [
+    {
+      "id": "ch1_start",
+      "type": "line",
+      "speaker": "Bá Tước Varo",
+      "text": "Trật tự xã hội này là vĩnh hằng! Ta giàu và có quyền sở hữu đất đai này là do luật pháp nhà nước quy định từ ngàn năm. Các ngươi nghèo là vì số mệnh Thần định, hoặc do bản tính lười biếng, thiếu trí tuệ!",
+      "next": "ch1_context1"
+    },
+    {
+      "id": "ch1_context1",
+      "type": "line",
+      "speaker": "Silas (Nông Dân)",
+      "text": "Nghe lời hắn, tim tôi như đứt từng khúc... Cha tôi và ông tôi cũng đã cúi đầu chấp nhận số phận ở mảnh đất này. Lẽ nào đây là sự thật?",
+      "next": "ch1_context2"
+    },
+    {
+      "id": "ch1_context2",
+      "type": "line",
+      "speaker": "Người Kể Chuyện",
+      "text": "Trước mắt bạn: Ruộng đất màu mỡ do mồ hôi nước mắt của Silas và cha ông canh tác bao đời, nay bị lính canh của Bá tước Varo dùng súng trường canh giữ. Đây chính là hiện thân của 'TƯ LIỆU SẢN XUẤT BỊ CHIẾM ĐOẠT'.",
+      "next": "ch1_choice1"
+    },
+    {
+      "id": "ch1_choice1",
+      "type": "choice",
+      "prompt": "Đám đông nông dân đang run rẩy nhưng nhìn về phía bạn. Bạn cần vạch trần bản chất giai cấp theo định nghĩa của Lênin — nhưng hãy cẩn thận với các bẫy lý luận!",
+      "timerSeconds": 20,
+      "timeoutFallback": "C",
+      "options": [
+        {
+          "key": "A",
+          "label": "Giai cấp không do Thần định! Đó là tập đoàn người phân biệt nhau bởi quan hệ với tư liệu sản xuất, do đó chế độ tư hữu chiếm đoạt là căn nguyên thật sự!",
+          "consequence": "ch1_resA",
+          "ideologyDelta": 25,
+          "forcesDelta": 500
+        },
+        {
+          "key": "B",
+          "label": "Sự bất công này là do giáo dục thấp kém. Hãy mở trường học cho nông dân, tri thức sẽ xóa bỏ bất công!",
+          "consequence": "ch1_resBtrap",
+          "ideologyDelta": -15,
+          "forcesDelta": 0
+        },
+        {
+          "key": "C",
+          "label": "Ai cũng là con người. Xin ngài hãy có lòng thương, giảm bớt tô thuế để hòa bình chung sống.",
+          "consequence": "ch1_resB",
+          "ideologyDelta": -30,
+          "forcesDelta": 0
+        },
+        {
+          "key": "D",
+          "label": "Hãy dùng bạo lực ngay lập tức! Giết địa chủ, đốt dinh thự, lấy đất mà chia!",
+          "consequence": "ch1_resDtrap",
+          "ideologyDelta": -20,
+          "forcesDelta": -200
+        }
+      ]
+    },
+    {
+      "id": "ch1_resBtrap",
+      "type": "line",
+      "speaker": "Bá Tước Varo",
+      "text": "Haha! Vậy thì cứ mở trường mà học đi! Con cái ngươi học xong vẫn không có đất mà cày, vì đất vẫn thuộc về ta! Cải lương giáo dục không xóa bỏ được quan hệ sở hữu!",
+      "next": "ch1_resB"
+    },
+    {
+      "id": "ch1_resDtrap",
+      "type": "line",
+      "speaker": "Người Kể Chuyện",
+      "text": "Bạo động vô tổ chức! Lính canh đàn áp tức thì bằng vũ khí. Bạo lực tự phát không có lý luận dẫn đường chỉ là tự sát. Bạn và Silas bị bắt vào ngục...",
+      "next": "ch1_prison_puzzle"
+    },
+    {
+      "id": "ch1_resA",
+      "type": "line",
+      "speaker": "Hệ Thống",
+      "text": "CHÍNH XÁC! Đám đông thức tỉnh — họ nhận ra Varo không phải 'ý Trời' mà là kẻ chiếm đoạt tư liệu sản xuất. Silas được giải cứu. Nhưng địch còn mạnh, bạn cần thêm liên minh...",
+      "next": "ch1_sidequest1"
+    },
+    {
+      "id": "ch1_resB",
+      "type": "line",
+      "speaker": "Bá Tước Varo",
+      "text": "Lòng thương hại ư? Kẻ yếu hèn! Bắt giam tất cả chúng vào ngục tối!",
+      "next": "ch1_prison_puzzle"
+    },
+    {
+      "id": "ch1_prison_puzzle",
+      "type": "choice",
+      "prompt": "(GIẢI ĐỐ VƯỢT NGỤC – 12 GIÂY) Dòng chữ khắc trên vách đá: 'Nguồn gốc sâu xa và điều kiện để xóa bỏ hoàn toàn giai cấp là gì?' — Chọn sai, còn ở tù!",
+      "timerSeconds": 12,
+      "timeoutFallback": "A",
+      "options": [
+        {
+          "key": "A",
+          "label": "Giáo dục đạo đức và khuyến khích địa chủ tự nguyện chia đất cho dân nghèo.",
+          "consequence": "ch1_resC",
+          "ideologyDelta": -100,
+          "forcesDelta": 0
+        },
+        {
+          "key": "B",
+          "label": "Nguồn gốc là LLSX chưa phát triển; giai cấp chỉ bị xóa bỏ khi LLSX đạt xã hội hóa cao, tiêu tan chế độ tư hữu.",
+          "consequence": "ch1_prison_escape",
+          "ideologyDelta": 10,
+          "forcesDelta": 100
+        },
+        {
+          "key": "C",
+          "label": "Nhà nước ban hành luật pháp công bằng, điều tiết phân phối thu nhập giữa các giai cấp.",
+          "consequence": "ch1_resC",
+          "ideologyDelta": -100,
+          "forcesDelta": 0
+        }
+      ]
+    },
+    {
+      "id": "ch1_prison_escape",
+      "type": "line",
+      "speaker": "Hệ Thống",
+      "text": "Chính xác! Người lính gác vốn là nông dân, được thức tỉnh bởi lý luận của bạn và lén mở cửa ngục. Nhưng lực lượng đã bị suy giảm đáng kể vì những ngày bị giam cầm.",
+      "next": "ch1_sidequest1"
+    },
+    {
+      "id": "ch1_resC",
+      "type": "line",
+      "speaker": "Hệ Thống",
+      "text": "BAD ENDING 1: Bạn sa vào tư duy duy tâm – lý tưởng hóa đạo đức mà quên mất căn nguyên vật chất. Silas chết trong ngục. Phong trào tan vỡ ngay từ trứng nước.",
+      "next": "ending"
+    },
+    {
+      "id": "ch1_sidequest1",
+      "type": "choice",
+      "prompt": "(NHIỆM VỤ PHỤ – 18 GIÂY) Trưởng thôn Oros từ chối quyên góp lương thực cho công nhân bãi công vì cho rằng nông dân và công nhân 'chẳng dính líu gì nhau'. Hãy thuyết phục ông bằng lý luận liên minh giai cấp:",
+      "timerSeconds": 18,
+      "timeoutFallback": "C",
+      "options": [
+        {
+          "key": "A",
+          "label": "Nông dân và công nhân đều là giai cấp bị áp bức bóc lột, có lợi ích cơ bản thống nhất. Liên minh Công-Nông là tất yếu lịch sử!",
+          "consequence": "ch1_sq1_win",
+          "ideologyDelta": 15,
+          "forcesDelta": 300
+        },
+        {
+          "key": "B",
+          "label": "Công nhân và nông dân đều là dân nghèo cả, cứu nhau là đạo lý làm người thôi!",
+          "consequence": "ch1_sq1_mid",
+          "ideologyDelta": 5,
+          "forcesDelta": 100
+        },
+        {
+          "key": "C",
+          "label": "Hãy quyên góp đi, sau này họ giàu thì sẽ mua hàng nông sản của ông nhiều hơn.",
+          "consequence": "ch1_sq1_lose",
+          "ideologyDelta": -15,
+          "forcesDelta": -100
+        }
+      ]
+    },
+    {
+      "id": "ch1_sq1_win",
+      "type": "line",
+      "speaker": "Trưởng Thôn Oros",
+      "text": "Môi hở răng lạnh! Lý luận này mở mắt tôi rồi. Chúng tôi lập tức chi viện lương thực đầy đủ và cử thêm 300 tráng đinh đi cùng!",
+      "next": "next_chapter"
+    },
+    {
+      "id": "ch1_sq1_mid",
+      "type": "line",
+      "speaker": "Trưởng Thôn Oros",
+      "text": "Đạo lý thì có... nhưng thuyết phục không được chắc. Thôi được, tôi góp ít gạo thôi.",
+      "next": "next_chapter"
+    },
+    {
+      "id": "ch1_sq1_lose",
+      "type": "line",
+      "speaker": "Trưởng Thôn Oros",
+      "text": "Lời hứa hão huyền! Chúng tôi giữ lại gạo cho mình. Tự lo mà đi!",
+      "next": "next_chapter"
+    }
+  ]
+}

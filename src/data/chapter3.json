@@ -1,0 +1,164 @@
+{
+  "nodes": [
+    {
+      "id": "ch3_start",
+      "type": "line",
+      "speaker": "Thủ Lĩnh Công Nhân",
+      "text": "Nhìn xem! Tay của Marcin bị máy dệt nghiền nát trong ca làm 14 tiếng của hắn. Chủ xưởng vẫn thét: 'Làm tiếp!' Những cỗ máy cơ giới này chính là quỷ dữ — hãy phá hủy toàn bộ nhà xưởng!",
+      "next": "ch3_context1"
+    },
+    {
+      "id": "ch3_context1",
+      "type": "line",
+      "speaker": "Người Kể Chuyện",
+      "text": "Đây là một tình huống lý luận CỰC KỲ TINH TẾ. Phong trào Luddite thế kỷ 19 đã phá máy và thất bại thảm hại. Câu hỏi là: Máy móc có phải kẻ thù không? Và ai mới thực sự là kẻ bóc lột?",
+      "next": "ch3_context2"
+    },
+    {
+      "id": "ch3_context2",
+      "type": "line",
+      "speaker": "Rosa (Nữ Công Nhân Tiên Phong)",
+      "text": "Tôi đọc được tài liệu lý luận: Chủ xưởng đang bóc lột Giá trị thặng dư tuyệt đối — kéo dài ngày làm việc vượt quá mức cần thiết. Nhưng nếu chúng ta đập máy... ai sẽ là người bị sa thải đầu tiên?",
+      "next": "ch3_choice1"
+    },
+    {
+      "id": "ch3_choice1",
+      "type": "choice",
+      "prompt": "(20 GIÂY) Bạn phải ngăn bạo động tự phát và chỉ ra kẻ thù thực sự. Đây là câu hỏi LÝ LUẬN KINH TẾ-CHÍNH TRỊ khó nhất. Tránh bẫy!",
+      "timerSeconds": 20,
+      "timeoutFallback": "D",
+      "options": [
+        {
+          "key": "A",
+          "label": "Máy móc là Lực lượng Sản xuất tiên tiến, trung lập! Kẻ bóc lột là Quan hệ Sản xuất tư bản — chế độ tư hữu. Đừng đập máy, hãy lập Chính đảng vô sản để đấu tranh chính trị tự giác!",
+          "consequence": "ch3_resA",
+          "ideologyDelta": 25,
+          "forcesDelta": 2000
+        },
+        {
+          "key": "B",
+          "label": "Hãy đình công đòi tăng lương và giảm giờ làm — cải thiện đời sống là mục tiêu tối cao của giai cấp công nhân!",
+          "consequence": "ch3_resB",
+          "ideologyDelta": -30,
+          "forcesDelta": -500
+        },
+        {
+          "key": "C",
+          "label": "Phá máy là đúng! Không có máy móc thì chủ xưởng không thể bóc lột chúng ta được nữa!",
+          "consequence": "ch3_resCluddite",
+          "ideologyDelta": -25,
+          "forcesDelta": -300
+        },
+        {
+          "key": "D",
+          "label": "Hãy thương lượng với chủ xưởng, đề nghị chia sẻ lợi nhuận — chủ-thợ cùng nhau xây dựng nhà máy!",
+          "consequence": "ch3_resDtrap",
+          "ideologyDelta": -40,
+          "forcesDelta": -200
+        }
+      ]
+    },
+    {
+      "id": "ch3_resCluddite",
+      "type": "line",
+      "speaker": "Người Kể Chuyện",
+      "text": "Phá máy! Nhưng chủ xưởng mua máy mới chỉ trong một tuần — với ít nhân công hơn. 500 công nhân bị sa thải. Đây chính là sai lầm lịch sử của Phong trào Luddite. Quân cảnh ập đến!",
+      "next": "ch3_defense_puzzle"
+    },
+    {
+      "id": "ch3_resDtrap",
+      "type": "line",
+      "speaker": "Chủ Xưởng",
+      "text": "Thương lượng? Haha! Tôi đã gọi quân cảnh đến. Kẻ nào kích động công nhân sẽ bị bắt. Bất kỳ kẻ nào kêu gọi 'chia sẻ' tài sản của tôi đều là kẻ phạm pháp!",
+      "next": "ch3_resB"
+    },
+    {
+      "id": "ch3_resA",
+      "type": "choice",
+      "prompt": "(BONUS – 15 GIÂY) Rosa hỏi: 'Để xây dựng Chính đảng vô sản vững mạnh, điều kiện tiên quyết là gì?'",
+      "timerSeconds": 15,
+      "timeoutFallback": "A",
+      "options": [
+        {
+          "key": "A",
+          "label": "Phải có thật nhiều tiền để tài trợ cho các hoạt động cách mạng.",
+          "consequence": "ch3_resA_partial",
+          "ideologyDelta": -5,
+          "forcesDelta": 0
+        },
+        {
+          "key": "B",
+          "label": "Phải có lý luận khoa học dẫn đường (Chủ nghĩa Mác-Lênin), kỷ luật sắt và sự gắn bó mật thiết với quần chúng!",
+          "consequence": "ch3_resA_full",
+          "ideologyDelta": 15,
+          "forcesDelta": 500
+        }
+      ]
+    },
+    {
+      "id": "ch3_resA_full",
+      "type": "line",
+      "speaker": "Rosa",
+      "text": "Đúng vậy! Lý luận không có thực tiễn là lý luận chết. Thực tiễn không có lý luận là thực tiễn mù. Tôi tuyên thệ gia nhập Đảng và sẽ là chiến sĩ tiên phong!",
+      "next": "next_chapter"
+    },
+    {
+      "id": "ch3_resA_partial",
+      "type": "line",
+      "speaker": "Rosa",
+      "text": "Tiền là cần, nhưng không phải điều kiện tiên quyết. Câu trả lời chưa đủ sắc bén...",
+      "next": "next_chapter"
+    },
+    {
+      "id": "ch3_resB",
+      "type": "line",
+      "speaker": "Hệ Thống",
+      "text": "Sai lầm (Sa vào Chủ nghĩa Công đoàn hẹp hòi). Chủ xưởng mua chuộc một số phần tử, gọi quân đội đàn áp. Rosa bị bắt. Lực lượng bị dồn vào chiến lũy trong thành phố!",
+      "next": "ch3_defense_puzzle"
+    },
+    {
+      "id": "ch3_defense_puzzle",
+      "type": "choice",
+      "prompt": "(LẬT KÈO SINH TỬ – 8 GIÂY) Quân đội đang xiết vòng vây. Rosa bị trói ngay trước mặt bạn. Câu hỏi SỐNG CÒN: Đâu là hình thức đấu tranh CAO NHẤT của giai cấp vô sản?",
+      "timerSeconds": 8,
+      "timeoutFallback": "A",
+      "options": [
+        {
+          "key": "A",
+          "label": "Đấu tranh kinh tế — đòi tăng lương, giảm giờ làm, cải thiện điều kiện sống.",
+          "consequence": "ch3_resC",
+          "ideologyDelta": -100,
+          "forcesDelta": 0
+        },
+        {
+          "key": "B",
+          "label": "Đấu tranh vũ trang — dùng bạo lực ngay lập tức tiêu diệt kẻ thù.",
+          "consequence": "ch3_resC",
+          "ideologyDelta": -100,
+          "forcesDelta": 0
+        },
+        {
+          "key": "C",
+          "label": "Đấu tranh chính trị — lật đổ ách thống trị của tư sản, giành chính quyền về tay giai cấp vô sản!",
+          "consequence": "ch3_defense_win",
+          "ideologyDelta": 10,
+          "forcesDelta": 500
+        }
+      ]
+    },
+    {
+      "id": "ch3_defense_win",
+      "type": "line",
+      "speaker": "Hệ Thống",
+      "text": "CHÍNH XÁC! Công nhân lấy lại ý chí cách mạng. Tổ chức phản công có bài bản, bẻ gãy đợt càn quét và giải cứu Rosa thành công. Tiến về Chương 4!",
+      "next": "next_chapter"
+    },
+    {
+      "id": "ch3_resC",
+      "type": "line",
+      "speaker": "Hệ Thống",
+      "text": "GAME OVER: Lý luận sai — phong trào tan rã. Rosa bị xử tử công khai làm gương. Bạn chết trong làn đạn đàn áp của quân đội tư sản.",
+      "next": "ending"
+    }
+  ]
+}

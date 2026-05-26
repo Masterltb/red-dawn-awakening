@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-red: #DC143C;
+  --color-brand-dark-red: #8B0000;
+  --color-brand-gold: #FFD700;
+  --color-brand-dark-blue: #0D1B2A;
+  --font-press: "Be Vietnam Pro", sans-serif;
+  --font-sans: "Be Vietnam Pro", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0a0a0a;
+    color: white;
+    user-select: none;
+  }
+  
+  #root {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+}
