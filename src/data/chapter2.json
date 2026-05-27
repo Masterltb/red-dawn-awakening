@@ -3,7 +3,7 @@
     {
       "id": "ch2_start",
       "type": "line",
-      "speaker": "Trưởng Bản",
+      "speaker": "Tộc Trưởng",
       "text": "Cộng đồng người của chúng ta từ xưa đến nay gắn kết bằng quan hệ huyết thống thiêng liêng! Tại sao bây giờ lại xuất hiện những người lạ không cùng máu mủ đến đòi chung sống trên cùng vùng đất của tổ tiên chúng ta?",
       "next": "ch2_context1"
     },
@@ -17,7 +17,7 @@
     {
       "id": "ch2_context2",
       "type": "line",
-      "speaker": "Sơn Dân (Đại diện)",
+      "speaker": "Sơn Dân",
       "text": "Huyết thống ư? Huyết thống của ta đã trộn lẫn với ba dòng máu khác nhau qua hàng trăm năm hôn nhân và di cư. Vậy 'huyết thống thuần khiết' mà ông nói đến... còn tồn tại không?",
       "next": "ch2_choice1"
     },
@@ -61,7 +61,7 @@
     {
       "id": "ch2_resA_bonus",
       "type": "choice",
-      "prompt": "(BONUS – 15 GIÂY) Trưởng bản hỏi thêm: 'Vậy dân tộc ở Phương Đông như chúng ta — điều gì đã thực sự gắn kết chúng ta lại từ trong lịch sử?'",
+      "prompt": "(BONUS – 15 GIÂY) Tộc Trưởng hỏi thêm: 'Vậy dân tộc ở Phương Đông như chúng ta — điều gì đã thực sự gắn kết chúng ta lại từ trong lịch sử?'",
       "timerSeconds": 15,
       "timeoutFallback": "B",
       "options": [
@@ -84,14 +84,14 @@
     {
       "id": "ch2_resA_maxbonus",
       "type": "line",
-      "speaker": "Trưởng Bản",
+      "speaker": "Tộc Trưởng",
       "text": "Đúng! Chính những cơn lũ dữ và giặc ngoại xâm đã buộc chúng ta phải cùng nhau sống chết. Máu mủ thứ hai! Tôi đồng ý liên hiệp và sẽ gửi thêm 500 dũng sĩ tinh nhuệ nhất!",
       "next": "next_chapter"
     },
     {
       "id": "ch2_resDtrap",
       "type": "line",
-      "speaker": "Trưởng Bản",
+      "speaker": "Tộc Trưởng",
       "text": "Câu trả lời đẹp... nhưng rỗng tuếch. 'Sống hòa thuận' không phải là lý luận chính trị. Trong khi ta còn đang tranh cãi về cảm xúc, quân thám báo viễn chinh đã xâm nhập vào bản!",
       "next": "ch2_resB"
     },

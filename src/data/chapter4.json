@@ -17,7 +17,7 @@
     {
       "id": "ch4_context2",
       "type": "line",
-      "speaker": "Rosa (Nay là Chính Ủy)",
+      "speaker": "Chính Ủy",
       "text": "Cẩn thận! Đây là câu hỏi biện chứng giữa Giải phóng dân tộc và Giải phóng giai cấp. Nếu đặt cái này lên, sẽ mâu thuẫn với cái kia. Lịch sử sẽ phán xét quyết định này!",
       "next": "ch4_choice1"
     },
@@ -68,7 +68,7 @@
     {
       "id": "ch4_resA",
       "type": "choice",
-      "prompt": "(BOSS FINAL – 15 GIÂY) Silas và Rosa đang chờ lời hiệu triệu. Khẩu hiệu nào CHÍNH XÁC nhất để đặt tên cho con đường bạn vừa chọn?",
+      "prompt": "(BOSS FINAL – 15 GIÂY) Nông Dân và Chính Ủy đang chờ lời hiệu triệu. Khẩu hiệu nào CHÍNH XÁC nhất để đặt tên cho con đường bạn vừa chọn?",
       "timerSeconds": 15,
       "timeoutFallback": "A",
       "options": [
@@ -142,7 +142,7 @@
     {
       "id": "ch4_final_win",
       "type": "line",
-      "speaker": "Rosa",
+      "speaker": "Chính Ủy",
       "text": "Lực lượng thức tỉnh! Binh sĩ nhận ra bộ mặt thật của kẻ thù. Chúng ta liều mình phá vây. Cách mạng chuyển sang Kháng chiến trường kỳ gian khổ — con đường vẫn còn dài nhưng lý tưởng không bao giờ tắt!",
       "next": "normal_ending"
     },

@@ -3,14 +3,14 @@
     {
       "id": "ch1_start",
       "type": "line",
-      "speaker": "Bá Tước Varo",
+      "speaker": "Bá Tước Địa Chủ",
       "text": "Trật tự xã hội này là vĩnh hằng! Ta giàu và có quyền sở hữu đất đai này là do luật pháp nhà nước quy định từ ngàn năm. Các ngươi nghèo là vì số mệnh Thần định, hoặc do bản tính lười biếng, thiếu trí tuệ!",
       "next": "ch1_context1"
     },
     {
       "id": "ch1_context1",
       "type": "line",
-      "speaker": "Silas (Nông Dân)",
+      "speaker": "Nông Dân",
       "text": "Nghe lời hắn, tim tôi như đứt từng khúc... Cha tôi và ông tôi cũng đã cúi đầu chấp nhận số phận ở mảnh đất này. Lẽ nào đây là sự thật?",
       "next": "ch1_context2"
     },
@@ -18,7 +18,7 @@
       "id": "ch1_context2",
       "type": "line",
       "speaker": "Người Kể Chuyện",
-      "text": "Trước mắt bạn: Ruộng đất màu mỡ do mồ hôi nước mắt của Silas và cha ông canh tác bao đời, nay bị lính canh của Bá tước Varo dùng súng trường canh giữ. Đây chính là hiện thân của 'TƯ LIỆU SẢN XUẤT BỊ CHIẾM ĐOẠT'.",
+      "text": "Trước mắt bạn: Ruộng đất màu mỡ do mồ hôi nước mắt của Nông Dân và cha ông canh tác bao đời, nay bị lính canh của Bá tước Địa chủ dùng súng trường canh giữ. Đây chính là hiện thân của 'TƯ LIỆU SẢN XUẤT BỊ CHIẾM ĐOẠT'.",
       "next": "ch1_choice1"
     },
     {
@@ -61,7 +61,7 @@
     {
       "id": "ch1_resBtrap",
       "type": "line",
-      "speaker": "Bá Tước Varo",
+      "speaker": "Bá Tước Địa Chủ",
       "text": "Haha! Vậy thì cứ mở trường mà học đi! Con cái ngươi học xong vẫn không có đất mà cày, vì đất vẫn thuộc về ta! Cải lương giáo dục không xóa bỏ được quan hệ sở hữu!",
       "next": "ch1_resB"
     },
@@ -76,13 +76,13 @@
       "id": "ch1_resA",
       "type": "line",
       "speaker": "Hệ Thống",
-      "text": "CHÍNH XÁC! Đám đông thức tỉnh — họ nhận ra Varo không phải 'ý Trời' mà là kẻ chiếm đoạt tư liệu sản xuất. Silas được giải cứu. Nhưng địch còn mạnh, bạn cần thêm liên minh...",
+      "text": "CHÍNH XÁC! Đám đông thức tỉnh — họ nhận ra Địa chủ không phải 'ý Trời' mà là kẻ chiếm đoạt tư liệu sản xuất. Nông Dân được giải cứu. Nhưng địch còn mạnh, bạn cần thêm liên minh...",
       "next": "ch1_sidequest1"
     },
     {
       "id": "ch1_resB",
       "type": "line",
-      "speaker": "Bá Tước Varo",
+      "speaker": "Bá Tước Địa Chủ",
       "text": "Lòng thương hại ư? Kẻ yếu hèn! Bắt giam tất cả chúng vào ngục tối!",
       "next": "ch1_prison_puzzle"
     },
@@ -127,13 +127,13 @@
       "id": "ch1_resC",
       "type": "line",
       "speaker": "Hệ Thống",
-      "text": "BAD ENDING 1: Bạn sa vào tư duy duy tâm – lý tưởng hóa đạo đức mà quên mất căn nguyên vật chất. Silas chết trong ngục. Phong trào tan vỡ ngay từ trứng nước.",
+      "text": "BAD ENDING 1: Bạn sa vào tư duy duy tâm – lý tưởng hóa đạo đức mà quên mất căn nguyên vật chất. Nông Dân chết trong ngục. Phong trào tan vỡ ngay từ trứng nước.",
       "next": "ending"
     },
     {
       "id": "ch1_sidequest1",
       "type": "choice",
-      "prompt": "(NHIỆM VỤ PHỤ – 18 GIÂY) Trưởng thôn Oros từ chối quyên góp lương thực cho công nhân bãi công vì cho rằng nông dân và công nhân 'chẳng dính líu gì nhau'. Hãy thuyết phục ông bằng lý luận liên minh giai cấp:",
+      "prompt": "(NHIỆM VỤ PHỤ – 18 GIÂY) Trưởng Thôn từ chối quyên góp lương thực cho công nhân bãi công vì cho rằng nông dân và công nhân 'chẳng dính líu gì nhau'. Hãy thuyết phục ông bằng lý luận liên minh giai cấp:",
       "timerSeconds": 18,
       "timeoutFallback": "C",
       "options": [
@@ -163,21 +163,21 @@
     {
       "id": "ch1_sq1_win",
       "type": "line",
-      "speaker": "Trưởng Thôn Oros",
+      "speaker": "Trưởng Thôn",
       "text": "Môi hở răng lạnh! Lý luận này mở mắt tôi rồi. Chúng tôi lập tức chi viện lương thực đầy đủ và cử thêm 300 tráng đinh đi cùng!",
       "next": "next_chapter"
     },
     {
       "id": "ch1_sq1_mid",
       "type": "line",
-      "speaker": "Trưởng Thôn Oros",
+      "speaker": "Trưởng Thôn",
       "text": "Đạo lý thì có... nhưng thuyết phục không được chắc. Thôi được, tôi góp ít gạo thôi.",
       "next": "next_chapter"
     },
     {
       "id": "ch1_sq1_lose",
       "type": "line",
-      "speaker": "Trưởng Thôn Oros",
+      "speaker": "Trưởng Thôn",
       "text": "Lời hứa hão huyền! Chúng tôi giữ lại gạo cho mình. Tự lo mà đi!",
       "next": "next_chapter"
     }

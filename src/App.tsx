@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
@@ -12,12 +12,58 @@ import { DialogueSystem } from './ui/DialogueSystem';
 import { ResultScreen } from './ui/ResultScreen';
 import { useGameStore } from './stores/useGameStore';
 import { AnimatePresence, motion } from 'framer-motion';
+// Sử dụng trực tiếp đường dẫn tĩnh khớp với thẻ preload trong index.html để phát nhạc lập tức
+const menuMusic = new Audio(`${import.meta.env.BASE_URL}menu_music.mp3`);
+menuMusic.loop = true;
+menuMusic.preload = 'auto';
+
+// Giới hạn vòng lặp nhạc nền chỉ phát tối đa 30 giây rồi quay lại từ đầu
+menuMusic.addEventListener('timeupdate', () => {
+  if (menuMusic.currentTime >= 30) {
+    menuMusic.currentTime = 0;
+  }
+});
 
 export default function App() {
   const isStarted = useGameStore((state) => state.isStarted);
   const chapter = useGameStore((state) => state.chapter);
   const endGameStatus = useGameStore((state) => state.endGameStatus);
   const setEndGameStatus = useGameStore((state) => state.setEndGameStatus);
+
+  // Điều khiển nhạc nền: phát ở menu, fade-out khi vào game
+  useEffect(() => {
+    if (!isStarted) {
+      menuMusic.volume = 0.4;
+      
+      const playMusic = () => {
+        menuMusic.play().catch((err) => {
+          console.log('Chờ người dùng tương tác để phát nhạc...', err);
+        });
+      };
+
+      // Đăng ký tương tác để kích hoạt phát nhạc (bypass chính sách autoplay của browser)
+      window.addEventListener('click', playMusic);
+      window.addEventListener('keydown', playMusic);
+
+      return () => {
+        window.removeEventListener('click', playMusic);
+        window.removeEventListener('keydown', playMusic);
+      };
+    } else {
+      // Fade-out nhạc nền nhỏ dần khi bắt đầu chơi game
+      let fadeInterval = setInterval(() => {
+        if (menuMusic.volume > 0.05) {
+          menuMusic.volume -= 0.05;
+        } else {
+          clearInterval(fadeInterval);
+          menuMusic.pause();
+          menuMusic.currentTime = 0;
+        }
+      }, 50);
+
+      return () => clearInterval(fadeInterval);
+    }
+  }, [isStarted, menuMusic]);
 
   // Restart handler
   const handleRestart = () => {

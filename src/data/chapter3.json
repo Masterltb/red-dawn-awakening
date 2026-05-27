@@ -4,7 +4,7 @@
       "id": "ch3_start",
       "type": "line",
       "speaker": "Thủ Lĩnh Công Nhân",
-      "text": "Nhìn xem! Tay của Marcin bị máy dệt nghiền nát trong ca làm 14 tiếng của hắn. Chủ xưởng vẫn thét: 'Làm tiếp!' Những cỗ máy cơ giới này chính là quỷ dữ — hãy phá hủy toàn bộ nhà xưởng!",
+      "text": "Nhìn xem! Tay của người công nhân bị máy dệt nghiền nát trong ca làm 14 tiếng của hắn. Chủ xưởng vẫn thét: 'Làm tiếp!' Những cỗ máy cơ giới này chính là quỷ dữ — hãy phá hủy toàn bộ nhà xưởng!",
       "next": "ch3_context1"
     },
     {
@@ -17,7 +17,7 @@
     {
       "id": "ch3_context2",
       "type": "line",
-      "speaker": "Rosa (Nữ Công Nhân Tiên Phong)",
+      "speaker": "Nữ Công Nhân",
       "text": "Tôi đọc được tài liệu lý luận: Chủ xưởng đang bóc lột Giá trị thặng dư tuyệt đối — kéo dài ngày làm việc vượt quá mức cần thiết. Nhưng nếu chúng ta đập máy... ai sẽ là người bị sa thải đầu tiên?",
       "next": "ch3_choice1"
     },
@@ -75,7 +75,7 @@
     {
       "id": "ch3_resA",
       "type": "choice",
-      "prompt": "(BONUS – 15 GIÂY) Rosa hỏi: 'Để xây dựng Chính đảng vô sản vững mạnh, điều kiện tiên quyết là gì?'",
+      "prompt": "(BONUS – 15 GIÂY) Nữ Công Nhân hỏi: 'Để xây dựng Chính đảng vô sản vững mạnh, điều kiện tiên quyết là gì?'",
       "timerSeconds": 15,
       "timeoutFallback": "A",
       "options": [
@@ -98,14 +98,14 @@
     {
       "id": "ch3_resA_full",
       "type": "line",
-      "speaker": "Rosa",
+      "speaker": "Nữ Công Nhân",
       "text": "Đúng vậy! Lý luận không có thực tiễn là lý luận chết. Thực tiễn không có lý luận là thực tiễn mù. Tôi tuyên thệ gia nhập Đảng và sẽ là chiến sĩ tiên phong!",
       "next": "next_chapter"
     },
     {
       "id": "ch3_resA_partial",
       "type": "line",
-      "speaker": "Rosa",
+      "speaker": "Nữ Công Nhân",
       "text": "Tiền là cần, nhưng không phải điều kiện tiên quyết. Câu trả lời chưa đủ sắc bén...",
       "next": "next_chapter"
     },
@@ -113,13 +113,13 @@
       "id": "ch3_resB",
       "type": "line",
       "speaker": "Hệ Thống",
-      "text": "Sai lầm (Sa vào Chủ nghĩa Công đoàn hẹp hòi). Chủ xưởng mua chuộc một số phần tử, gọi quân đội đàn áp. Rosa bị bắt. Lực lượng bị dồn vào chiến lũy trong thành phố!",
+      "text": "Sai lầm (Sa vào Chủ nghĩa Công đoàn hẹp hòi). Chủ xưởng mua chuộc một số phần tử, gọi quân đội đàn áp. Nữ Công Nhân bị bắt. Lực lượng bị dồn vào chiến lũy trong thành phố!",
       "next": "ch3_defense_puzzle"
     },
     {
       "id": "ch3_defense_puzzle",
       "type": "choice",
-      "prompt": "(LẬT KÈO SINH TỬ – 8 GIÂY) Quân đội đang xiết vòng vây. Rosa bị trói ngay trước mặt bạn. Câu hỏi SỐNG CÒN: Đâu là hình thức đấu tranh CAO NHẤT của giai cấp vô sản?",
+      "prompt": "(LẬT KÈO SINH TỬ – 8 GIÂY) Quân đội đang xiết vòng vây. Nữ Công Nhân bị trói ngay trước mặt bạn. Câu hỏi SỐNG CÒN: Đâu là hình thức đấu tranh CAO NHẤT của giai cấp vô sản?",
       "timerSeconds": 8,
       "timeoutFallback": "A",
       "options": [
@@ -150,14 +150,14 @@
       "id": "ch3_defense_win",
       "type": "line",
       "speaker": "Hệ Thống",
-      "text": "CHÍNH XÁC! Công nhân lấy lại ý chí cách mạng. Tổ chức phản công có bài bản, bẻ gãy đợt càn quét và giải cứu Rosa thành công. Tiến về Chương 4!",
+      "text": "CHÍNH XÁC! Công nhân lấy lại ý chí cách mạng. Tổ chức phản công có bài bản, bẻ gãy đợt càn quét và giải cứu Nữ Công Nhân thành công. Tiến về Chương 4!",
       "next": "next_chapter"
     },
     {
       "id": "ch3_resC",
       "type": "line",
       "speaker": "Hệ Thống",
-      "text": "GAME OVER: Lý luận sai — phong trào tan rã. Rosa bị xử tử công khai làm gương. Bạn chết trong làn đạn đàn áp của quân đội tư sản.",
+      "text": "GAME OVER: Lý luận sai — phong trào tan rã. Nữ Công Nhân bị xử tử công khai làm gương. Bạn chết trong làn đạn đàn áp của quân đội tư sản.",
       "next": "ending"
     }
   ]
