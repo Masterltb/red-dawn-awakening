@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
@@ -34,7 +34,7 @@ export default function App() {
   useEffect(() => {
     if (!isStarted) {
       menuMusic.volume = 0.4;
-      
+
       const playMusic = () => {
         menuMusic.play().catch((err) => {
           console.log('Chờ người dùng tương tác để phát nhạc...', err);
@@ -51,7 +51,7 @@ export default function App() {
       };
     } else {
       // Fade-out nhạc nền nhỏ dần khi bắt đầu chơi game
-      let fadeInterval = setInterval(() => {
+      const fadeInterval = setInterval(() => {
         if (menuMusic.volume > 0.05) {
           menuMusic.volume -= 0.05;
         } else {
@@ -63,7 +63,7 @@ export default function App() {
 
       return () => clearInterval(fadeInterval);
     }
-  }, [isStarted, menuMusic]);
+  }, [isStarted]);
 
   // Restart handler
   const handleRestart = () => {
@@ -82,7 +82,7 @@ export default function App() {
             {chapter === 2 && <ValleyScene />}
             {chapter === 3 && <FactoryScene />}
             {chapter === 4 && <MountainScene />}
-            
+
             {/* Tắt multisampling để giảm tải GPU đáng kể */}
             <EffectComposer multisampling={0}>
               <Bloom luminanceThreshold={0.8} luminanceSmoothing={0.9} height={300} opacity={0.8} />
@@ -90,11 +90,11 @@ export default function App() {
             </EffectComposer>
           </Suspense>
 
-          <OrbitControls 
-            enableZoom={true} 
-            enablePan={false} 
-            autoRotate={!isStarted} 
-            autoRotateSpeed={0.5} 
+          <OrbitControls
+            enableZoom={true}
+            enablePan={false}
+            autoRotate={!isStarted}
+            autoRotateSpeed={0.5}
             minPolarAngle={Math.PI / 4}
             maxPolarAngle={Math.PI / 2.1}
           />
@@ -104,7 +104,7 @@ export default function App() {
       {/* UI Layer (Z-Index: 10) */}
       <AnimatePresence>
         {!isStarted && !endGameStatus && <MainMenu key="main-menu" />}
-        
+
         {isStarted && !endGameStatus && (
           <>
             <HUD key="hud" />
@@ -113,7 +113,7 @@ export default function App() {
         )}
 
         {endGameStatus && (
-          <motion.div 
+          <motion.div
             key="game-over"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

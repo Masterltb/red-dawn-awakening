@@ -1,13 +1,24 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { ContactShadows, Environment, Sky, Clouds, Cloud } from '@react-three/drei';
+import { ContactShadows, Environment, Sky } from '@react-three/drei';
 import { VanguardModel } from './VanguardModel';
 import { useDialogueStore } from '../../stores/useDialogueStore';
 import * as THREE from 'three';
 
+const ArmySoldier = ({ pos }: { pos: [number, number, number] }) => (
+    <group position={pos}>
+      <mesh position={[0, 1.2, 0]} castShadow><sphereGeometry args={[0.35, 32, 32]} /><meshPhysicalMaterial color="#FFE0BD" roughness={0.4} /></mesh>
+      <mesh position={[0, 1.35, 0]} castShadow><sphereGeometry args={[0.36, 32, 32, 0, Math.PI * 2, 0, Math.PI/2]} /><meshPhysicalMaterial color="#a1a1aa" metalness={1} roughness={0.2} /></mesh>
+      <mesh position={[0, 0.6, 0]} castShadow><capsuleGeometry args={[0.22, 0.4, 32, 32]} /><meshPhysicalMaterial color="#172554" roughness={0.6} /></mesh>
+      <mesh position={[0.2, 0.6, 0.4]} rotation={[Math.PI/4, 0, 0]} castShadow><boxGeometry args={[0.05, 0.8, 0.1]} /><meshPhysicalMaterial color="#27272a" roughness={0.5} /></mesh>
+      <mesh position={[-0.12, 0.15, 0]} castShadow><cylinderGeometry args={[0.08, 0.08, 0.35, 32]} /><meshPhysicalMaterial color="#000000" roughness={0.4} /></mesh>
+      <mesh position={[0.12, 0.15, 0]} castShadow><cylinderGeometry args={[0.08, 0.08, 0.35, 32]} /><meshPhysicalMaterial color="#000000" roughness={0.4} /></mesh>
+    </group>
+  );
+
 function RoyalGeneralModel({ isActive }: { isActive: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   useFrame(() => {
     if (groupRef.current) {
       if (isActive) {
@@ -53,7 +64,7 @@ function RoyalGeneralModel({ isActive }: { isActive: boolean }) {
 
 function TribalChiefModel({ isActive }: { isActive: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   useFrame(() => {
     if (groupRef.current) {
       if (isActive) {
@@ -93,7 +104,7 @@ function TribalChiefModel({ isActive }: { isActive: boolean }) {
 
 function RoyalArmyGroup({ isActive }: { isActive: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   useFrame(() => {
     if (groupRef.current) {
       if (isActive) {
@@ -104,16 +115,6 @@ function RoyalArmyGroup({ isActive }: { isActive: boolean }) {
     }
   });
 
-  const ArmySoldier = ({ pos }: { pos: [number, number, number] }) => (
-    <group position={pos}>
-      <mesh position={[0, 1.2, 0]} castShadow><sphereGeometry args={[0.35, 32, 32]} /><meshPhysicalMaterial color="#FFE0BD" roughness={0.4} /></mesh>
-      <mesh position={[0, 1.35, 0]} castShadow><sphereGeometry args={[0.36, 32, 32, 0, Math.PI * 2, 0, Math.PI/2]} /><meshPhysicalMaterial color="#a1a1aa" metalness={1} roughness={0.2} /></mesh>
-      <mesh position={[0, 0.6, 0]} castShadow><capsuleGeometry args={[0.22, 0.4, 32, 32]} /><meshPhysicalMaterial color="#172554" roughness={0.6} /></mesh>
-      <mesh position={[0.2, 0.6, 0.4]} rotation={[Math.PI/4, 0, 0]} castShadow><boxGeometry args={[0.05, 0.8, 0.1]} /><meshPhysicalMaterial color="#27272a" roughness={0.5} /></mesh>
-      <mesh position={[-0.12, 0.15, 0]} castShadow><cylinderGeometry args={[0.08, 0.08, 0.35, 32]} /><meshPhysicalMaterial color="#000000" roughness={0.4} /></mesh>
-      <mesh position={[0.12, 0.15, 0]} castShadow><cylinderGeometry args={[0.08, 0.08, 0.35, 32]} /><meshPhysicalMaterial color="#000000" roughness={0.4} /></mesh>
-    </group>
-  );
 
   return (
     <group position={[-15, 0.2, 4]} rotation={[0, Math.PI/4, 0]} ref={groupRef}>
@@ -128,7 +129,7 @@ function RoyalArmyGroup({ isActive }: { isActive: boolean }) {
 
 function RosaCommissarModel({ isActive }: { isActive: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   useFrame(() => {
     if (groupRef.current) {
       if (isActive) {
@@ -148,11 +149,11 @@ function RosaCommissarModel({ isActive }: { isActive: boolean }) {
       <mesh position={[0, 1.45, 0]} rotation={[0.1, 0, 0]} castShadow><cylinderGeometry args={[0.34, 0.35, 0.15, 32]} /><meshPhysicalMaterial color="#dc2626" roughness={0.8} /></mesh>
       <mesh position={[-0.1, 1.25, 0.3]} castShadow><sphereGeometry args={[0.04, 32, 32]} /><meshPhysicalMaterial color="#000000" /></mesh>
       <mesh position={[0.1, 1.25, 0.3]} castShadow><sphereGeometry args={[0.04, 32, 32]} /><meshPhysicalMaterial color="#000000" /></mesh>
-      
+
       {/* Commissar Coat (Dark blue/black with red sash) */}
       <mesh position={[0, 0.6, 0]} castShadow><capsuleGeometry args={[0.2, 0.4, 32, 32]} /><meshPhysicalMaterial color="#1e293b" roughness={0.8} /></mesh>
       <mesh position={[0, 0.5, 0.15]} rotation={[-0.2, 0, 0.2]} castShadow><boxGeometry args={[0.3, 0.05, 0.15]} /><meshPhysicalMaterial color="#dc2626" roughness={0.9} /></mesh>
-      
+
       <mesh position={[-0.28, 0.65, 0]} rotation={[0, 0, -0.2]} castShadow><capsuleGeometry args={[0.06, 0.3, 16, 16]} /><meshPhysicalMaterial color="#1e293b" roughness={0.8} /></mesh>
       <mesh position={[0.28, 0.65, 0]} rotation={[0, 0, 0.2]} castShadow><capsuleGeometry args={[0.06, 0.3, 16, 16]} /><meshPhysicalMaterial color="#1e293b" roughness={0.8} /></mesh>
       <mesh position={[-0.1, 0.15, 0]} castShadow><cylinderGeometry args={[0.07, 0.07, 0.35, 32]} /><meshPhysicalMaterial color="#0f172a" roughness={0.9} /></mesh>
@@ -194,29 +195,29 @@ function MountainIsland() {
 
 export function MountainScene() {
   const currentNode = useDialogueStore((state) => state.currentNode);
-  
-  const isGeneralActive = (currentNode?.id.startsWith('ch4_start') || 
+
+  const isGeneralActive = (currentNode?.id.startsWith('ch4_start') ||
                            currentNode?.id.startsWith('ch4_choice1') ||
                            currentNode?.id.startsWith('ch4_resCcoalition')) &&
                            !currentNode?.id.startsWith('ch4_resA');
-                           
+
   const isRosaActive = currentNode?.id.startsWith('ch4_context2') ||
                        currentNode?.id.startsWith('ch4_choice1') ||
                        currentNode?.id.startsWith('ch4_resA') ||
                        currentNode?.id.startsWith('ch4_victory_true') ||
                        currentNode?.id.startsWith('ch4_final_win');
-                          
-  const isTribalActive = currentNode?.id.startsWith('ch4_sidequest') || 
+
+  const isTribalActive = currentNode?.id.startsWith('ch4_sidequest') ||
                          currentNode?.id.startsWith('ch4_sq');
-                         
-  const isArmyActive = (currentNode?.id.startsWith('ch4_resB') || 
+
+  const isArmyActive = (currentNode?.id.startsWith('ch4_resB') ||
                         currentNode?.id.startsWith('ch4_final') ||
                         currentNode?.id.startsWith('ch4_resCcoalition')) &&
                         !currentNode?.id.startsWith('ch4_final_win');
-                       
-  const isVictoryActive = currentNode?.id === 'ch4_victory_true' || 
+
+  const isVictoryActive = currentNode?.id === 'ch4_victory_true' ||
                           currentNode?.id === 'ch4_resA';
-                          
+
   const isGameOver = currentNode?.id === 'ch4_resC' || currentNode?.id === 'ending';
 
   return (
@@ -224,9 +225,9 @@ export function MountainScene() {
       <Sky distance={450000} sunPosition={[5, 2, 8]} turbidity={isGameOver ? 15 : 5} rayleigh={1.5} mieCoefficient={0.02} />
       {/* Light background fog, pushed far away */}
       <fog attach="fog" args={[isGameOver ? '#000000' : (isVictoryActive ? '#dc2626' : '#fbbf24'), 20, 60]} />
-      
+
       {/* Removed heavy Clouds component to improve FPS */}
-      
+
       <ambientLight intensity={isGameOver ? 0.1 : (isVictoryActive ? 1.0 : 0.6)} color={isGameOver ? '#ef4444' : (isVictoryActive ? '#ffedd5' : '#ffffff')} />
       {!isGameOver && (
         <directionalLight position={[10, 20, 10]} intensity={isVictoryActive ? 5 : 3} color={isVictoryActive ? '#fca5a5' : '#ffffff'} castShadow shadow-mapSize={[512, 512]} />
@@ -234,13 +235,13 @@ export function MountainScene() {
       {!isGameOver && (
         <directionalLight position={[-10, 10, -10]} intensity={1} color={isVictoryActive ? '#ef4444' : '#93c5fd'} />
       )}
-      
+
       <Environment preset="city" />
       <ContactShadows position={[0, -0.2, 0]} opacity={0.6} scale={20} resolution={256} blur={1} far={4} color={isGameOver ? '#000000' : '#451a03'} />
 
       <group>
         <MountainIsland />
-        
+
         {/* Dynamic Story Elements */}
         <RoyalGeneralModel isActive={isGeneralActive} />
         <RosaCommissarModel isActive={isRosaActive} />

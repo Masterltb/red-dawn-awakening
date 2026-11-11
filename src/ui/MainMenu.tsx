@@ -6,36 +6,32 @@ import type { LeaderboardEntry } from '../services/leaderboard';
 
 export function MainMenu() {
   const startGame = useGameStore((state) => state.startGame);
-  const [name, setName] = useState('');
+  const [localPlayer] = useState(() => {
+    try {
+      const raw = localStorage.getItem('binh_minh_do_player');
+      if (!raw) return null;
+      const parsed: unknown = JSON.parse(raw);
+      if (typeof parsed === 'object' && parsed !== null && 'name' in parsed && typeof parsed.name === 'string') {
+        return parsed as { name: string; bestScore?: number; totalPlays?: number };
+      }
+    } catch (error) {
+      console.error('Lỗi khi đọc dữ liệu người chơi:', error);
+    }
+    return null;
+  });
+  const [name, setName] = useState(() => localPlayer?.name ?? '');
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
   const [loadingLB, setLoadingLB] = useState(false);
-  
-  const [localPlayer, setLocalPlayer] = useState<any>(null);
-
-  useEffect(() => {
-    const localKey = 'binh_minh_do_player';
-    const localData = localStorage.getItem(localKey);
-    if (localData) {
-      try {
-        const parsed = JSON.parse(localData);
-        if (parsed.name) {
-          setName(parsed.name);
-          setLocalPlayer(parsed);
-        }
-      } catch (e) {
-        console.error('Lỗi khi đọc dữ liệu người chơi:', e);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (showLeaderboard) {
-      setLoadingLB(true);
-      fetchLeaderboard().then(data => {
-        setLeaderboardData(data);
-        setLoadingLB(false);
-      });
+      let active = true;
+      fetchLeaderboard()
+        .then((data) => { if (active) setLeaderboardData(data); })
+        .catch((error: unknown) => { console.error('Không tải được bảng xếp hạng:', error); })
+        .finally(() => { if (active) setLoadingLB(false); });
+      return () => { active = false; };
     }
   }, [showLeaderboard]);
 
@@ -48,7 +44,7 @@ export function MainMenu() {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center"
       exit={{ opacity: 0, scale: 1.1 }}
       transition={{ duration: 0.8 }}
@@ -59,7 +55,7 @@ export function MainMenu() {
           <h1 className="font-serif text-6xl text-brand-red font-bold uppercase" style={{ textShadow: '2px 2px 10px rgba(220, 20, 60, 0.5)' }}>Bình Minh Đỏ</h1>
           <p className="font-sans text-gray-300 mt-2">— Cuộc Hành Trình Lý Luận Cách Mạng —</p>
         </div>
-        
+
         {localPlayer && localPlayer.name === name.trim() ? (
           <div className="w-full bg-brand-red/10 border border-brand-red/30 p-4 rounded-lg my-2">
             <h3 className="font-bold text-brand-gold text-lg mb-2">⚔️ CHÀO MỪNG TRỞ LẠI, {localPlayer.name.toUpperCase()}! ⚔️</h3>
@@ -72,24 +68,24 @@ export function MainMenu() {
         ) : null}
 
         <div className="flex flex-col w-full gap-4 mt-2">
-          <input 
-            type="text" 
-            placeholder="NHẬP TÊN CỦA BẠN (VD: ĐỒNG CHÍ A)" 
+          <input
+            type="text"
+            placeholder="NHẬP TÊN CỦA BẠN (VD: ĐỒNG CHÍ A)"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full bg-black/50 border-2 border-brand-red/50 focus:border-brand-gold text-white font-sans text-center text-lg py-3 rounded-lg outline-none transition-all placeholder:text-gray-500"
             maxLength={20}
           />
-          
-          <button 
+
+          <button
             onClick={handleStart}
             className="w-full px-10 py-4 bg-gradient-to-r from-red-800 to-brand-red hover:from-brand-red hover:to-red-500 border-none text-white font-sans font-black text-xl rounded-lg transition-all duration-300 shadow-[0_0_20px_rgba(220,20,60,0.5)] hover:shadow-[0_0_30px_rgba(220,20,60,0.9)] hover:scale-105 tracking-widest cursor-pointer uppercase"
           >
             {localPlayer && localPlayer.name === name.trim() ? 'TIẾP TỤC HÀNH TRÌNH' : 'BẮT ĐẦU HÀNH TRÌNH'}
           </button>
 
-          <button 
-            onClick={() => setShowLeaderboard(true)}
+          <button
+            onClick={() => { setLoadingLB(true); setShowLeaderboard(true); }}
             className="w-full px-10 py-3 bg-white/5 hover:bg-white/10 border border-white/20 text-brand-gold font-sans font-bold text-md rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,215,0,0.2)] tracking-widest cursor-pointer uppercase mt-2"
           >
             BẢNG XẾP HẠNG
@@ -99,7 +95,7 @@ export function MainMenu() {
 
       <AnimatePresence>
         {showLeaderboard && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
@@ -110,14 +106,14 @@ export function MainMenu() {
                 <h2 className="text-2xl font-black text-black text-center uppercase tracking-widest">
                   Bảng Vàng Danh Dự
                 </h2>
-                <button 
+                <button
                   onClick={() => setShowLeaderboard(false)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-black hover:text-white font-black text-xl w-8 h-8 flex items-center justify-center rounded-full transition-colors"
                 >
                   ✕
                 </button>
               </div>
-              
+
               <div className="flex-1 overflow-y-auto p-6 bg-black/40">
                 {loadingLB ? (
                   <div className="text-center text-brand-gold py-10 font-sans animate-pulse">Đang tải dữ liệu tình báo...</div>

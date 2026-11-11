@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { useGameStore } from '../stores/useGameStore';
 
 interface ResultScreenProps {
@@ -20,8 +19,8 @@ export function ResultScreen({ onRestart }: ResultScreenProps) {
   const percentage = totalQuestions > 0 ? Math.round((sessionStats.correctAnswers / totalQuestions) * 100) : 0;
 
   const isWin = endGameStatus.type === 'win';
-  const score = isWin ? 
-    (endGameStatus.title === 'TRUE ENDING' ? ideology * 100 + forces : ideology * 50 + forces) : 
+  const score = isWin ?
+    (endGameStatus.title === 'TRUE ENDING' ? ideology * 100 + forces : ideology * 50 + forces) :
     (Math.max(0, ideology * 10) + forces);
 
   return (
@@ -61,7 +60,7 @@ export function ResultScreen({ onRestart }: ResultScreenProps) {
               <div className="h-full bg-green-500" style={{ width: `${percentage}%` }} />
             </div>
           </div>
-          
+
           <div className="bg-black/40 p-4 rounded-lg border border-white/10 flex flex-col items-center">
             <span className="text-gray-400 text-xs mb-1">CÂU SAI</span>
             <span className="text-red-400 font-bold text-2xl">{sessionStats.wrongAnswers}</span>
@@ -99,7 +98,7 @@ export function ResultScreen({ onRestart }: ResultScreenProps) {
         )}
 
         {/* Action Button */}
-        <button 
+        <button
           onClick={onRestart}
           className={`px-10 py-4 font-bold rounded shadow-lg transform transition hover:scale-105 tracking-widest ${isWin ? 'bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 active:from-yellow-700 active:to-yellow-800 text-white font-black text-xl shadow-[0_0_20px_rgba(234,179,8,0.4)]' : 'bg-red-700 hover:bg-red-600 active:bg-red-800 text-white'}`}
         >

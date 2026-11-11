@@ -6,28 +6,7 @@ import { useDialogueStore } from '../../stores/useDialogueStore';
 import * as THREE from 'three';
 
 // Tribal people arguing (Red vs Blue tribes)
-function TribalMob({ isFighting }: { isFighting: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
-  
-  useFrame((state) => {
-    if (groupRef.current) {
-      if (isFighting) {
-        // Chaotic fighting movement
-        groupRef.current.children.forEach((child, i) => {
-          child.position.y = Math.sin(state.clock.elapsedTime * 10 + i) * 0.1;
-          child.rotation.y = Math.sin(state.clock.elapsedTime * 5 + i) * 0.5;
-        });
-      } else {
-        // Calm breathing
-        groupRef.current.children.forEach((child, i) => {
-          child.position.y = Math.sin(state.clock.elapsedTime * 2 + i) * 0.02;
-          child.rotation.y = 0;
-        });
-      }
-    }
-  });
-
-  const Tribesman = ({ color, pos, rot }: { color: string, pos: [number, number, number], rot: [number, number, number] }) => (
+const Tribesman = ({ color, pos, rot }: { color: string, pos: [number, number, number], rot: [number, number, number] }) => (
     <group position={pos} rotation={rot}>
       {/* Head */}
       <mesh position={[0, 1.2, 0]} castShadow>
@@ -79,38 +58,7 @@ function TribalMob({ isFighting }: { isFighting: boolean }) {
     </group>
   );
 
-  return (
-    <group ref={groupRef} position={[0, 0, -2]}>
-      {/* Red Tribe (Arguing with Blue) */}
-      <Tribesman color="#dc2626" pos={[-1, 0, 0]} rot={[0, Math.PI / 4, 0]} />
-      <Tribesman color="#dc2626" pos={[-1.8, 0, 0.5]} rot={[0, Math.PI / 3, 0]} />
-      
-      {/* Blue Tribe */}
-      <Tribesman color="#2563eb" pos={[1, 0, 0]} rot={[0, -Math.PI / 4, 0]} />
-      <Tribesman color="#2563eb" pos={[1.8, 0, 0.5]} rot={[0, -Math.PI / 3, 0]} />
-    </group>
-  );
-}
-
-// Royal Expeditionary Force (Ambush)
-function RoyalAmbushForce({ isActive }: { isActive: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const targetZ = isActive ? -3 : -15; // Move in when active
-  
-  useFrame((state, delta) => {
-    if (groupRef.current) {
-      // Smoothly move forward
-      groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, targetZ, delta * 2);
-      
-      if (isActive) {
-        groupRef.current.children.forEach((child, i) => {
-          child.position.y = Math.sin(state.clock.elapsedTime * 8 + i) * 0.1; // Marching
-        });
-      }
-    }
-  });
-
-  const Soldier = ({ pos }: { pos: [number, number, number] }) => (
+const Soldier = ({ pos }: { pos: [number, number, number] }) => (
     <group position={pos}>
       {/* Head */}
       <mesh position={[0, 1.2, 0]} castShadow>
@@ -153,6 +101,60 @@ function RoyalAmbushForce({ isActive }: { isActive: boolean }) {
     </group>
   );
 
+function TribalMob({ isFighting }: { isFighting: boolean }) {
+  const groupRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      if (isFighting) {
+        // Chaotic fighting movement
+        groupRef.current.children.forEach((child, i) => {
+          child.position.y = Math.sin(state.clock.elapsedTime * 10 + i) * 0.1;
+          child.rotation.y = Math.sin(state.clock.elapsedTime * 5 + i) * 0.5;
+        });
+      } else {
+        // Calm breathing
+        groupRef.current.children.forEach((child, i) => {
+          child.position.y = Math.sin(state.clock.elapsedTime * 2 + i) * 0.02;
+          child.rotation.y = 0;
+        });
+      }
+    }
+  });
+
+
+  return (
+    <group ref={groupRef} position={[0, 0, -2]}>
+      {/* Red Tribe (Arguing with Blue) */}
+      <Tribesman color="#dc2626" pos={[-1, 0, 0]} rot={[0, Math.PI / 4, 0]} />
+      <Tribesman color="#dc2626" pos={[-1.8, 0, 0.5]} rot={[0, Math.PI / 3, 0]} />
+
+      {/* Blue Tribe */}
+      <Tribesman color="#2563eb" pos={[1, 0, 0]} rot={[0, -Math.PI / 4, 0]} />
+      <Tribesman color="#2563eb" pos={[1.8, 0, 0.5]} rot={[0, -Math.PI / 3, 0]} />
+    </group>
+  );
+}
+
+// Royal Expeditionary Force (Ambush)
+function RoyalAmbushForce({ isActive }: { isActive: boolean }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const targetZ = isActive ? -3 : -15; // Move in when active
+
+  useFrame((state, delta) => {
+    if (groupRef.current) {
+      // Smoothly move forward
+      groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, targetZ, delta * 2);
+
+      if (isActive) {
+        groupRef.current.children.forEach((child, i) => {
+          child.position.y = Math.sin(state.clock.elapsedTime * 8 + i) * 0.1; // Marching
+        });
+      }
+    }
+  });
+
+
   return (
     <group ref={groupRef} position={[0, -0.2, -15]}>
       <Soldier pos={[0, 0, 0]} />
@@ -190,29 +192,29 @@ function PineTree({ pos, scale = 1 }: { pos: [number, number, number], scale?: n
 
 export function ValleyScene() {
   const currentNode = useDialogueStore((state) => state.currentNode);
-  
+
   const isBonusNode = currentNode?.id.startsWith('ch2_resA_bonus') ||
                       currentNode?.id.startsWith('ch2_resA_maxbonus');
-                      
+
   const isFighting = (currentNode?.id === 'ch2_start' || currentNode?.id === 'ch2_choice1') && !isBonusNode;
-  const isAmbushed = currentNode?.id === 'ch2_resB' || 
+  const isAmbushed = currentNode?.id === 'ch2_resB' ||
                      currentNode?.id === 'ch2_ambush_puzzle' ||
                      currentNode?.id === 'ch2_resDtrap';
-                     
+
   const isGameOver = currentNode?.id === 'ch2_resC' || currentNode?.id === 'ending';
 
   return (
     <>
       <Sky distance={450000} sunPosition={[-2, 0.5, -5]} turbidity={isGameOver ? 15 : 8} rayleigh={isGameOver ? 4 : 2} mieCoefficient={0.05} />
       <fog attach="fog" args={[isGameOver ? '#000000' : '#27272a', isGameOver ? 2 : 5, isGameOver ? 15 : 30]} />
-      
+
       <ambientLight intensity={isGameOver ? 0.1 : 0.4} color={isGameOver ? '#ef4444' : '#a1a1aa'} />
       {!isGameOver && (
-        <directionalLight 
-          position={[0, 20, -20]} 
-          intensity={2} 
+        <directionalLight
+          position={[0, 20, -20]}
+          intensity={2}
           color="#fef08a"
-          castShadow 
+          castShadow
           shadow-mapSize={[512, 512]}
           shadow-camera-far={60}
           shadow-camera-left={-20}
@@ -221,7 +223,7 @@ export function ValleyScene() {
           shadow-camera-bottom={-20}
         />
       )}
-      
+
       <Environment preset="sunset" />
       <ContactShadows position={[0, -0.2, 0]} opacity={0.7} scale={20} blur={2} far={4} color={isGameOver ? '#000000' : '#451a03'} />
 
@@ -230,7 +232,7 @@ export function ValleyScene() {
         <planeGeometry args={[80, 80]} />
         <meshStandardMaterial color="#3f6212" roughness={1} />
       </mesh>
-      
+
       {/* Epic Valley Walls (Left side) */}
       <group position={[-12, 0, -10]}>
         <mesh position={[0, 5, 0]} rotation={[0, Math.PI / 8, 0]} receiveShadow castShadow>
@@ -267,7 +269,7 @@ export function ValleyScene() {
       <PineTree pos={[-6, 0, -8]} scale={1.2} />
       <PineTree pos={[-8, 0, -4]} scale={0.9} />
       <PineTree pos={[-5, 0, -12]} scale={1.5} />
-      
+
       <PineTree pos={[6, 0, -8]} scale={1.1} />
       <PineTree pos={[8, 0, -4]} scale={0.8} />
       <PineTree pos={[5, 0, -12]} scale={1.4} />

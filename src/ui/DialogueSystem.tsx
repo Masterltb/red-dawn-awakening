@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDialogueStore } from '../stores/useDialogueStore';
 
@@ -8,7 +8,7 @@ export function DialogueSystem() {
   // Load chapter 1 on mount
   useEffect(() => {
     loadChapter(1);
-  }, []);
+  }, [loadChapter]);
 
   if (!currentNode) return null;
 
@@ -53,7 +53,7 @@ export function DialogueSystem() {
             <div className="backdrop-blur-xl bg-black/80 border border-brand-gold/40 p-6 rounded-xl w-full mb-4 shadow-xl text-center">
               <p className="font-sans font-bold text-brand-gold text-lg">{currentNode.prompt}</p>
             </div>
-            
+
             <div className="w-full flex flex-col gap-3">
               {currentNode.options?.map((opt, index) => (
                 <button

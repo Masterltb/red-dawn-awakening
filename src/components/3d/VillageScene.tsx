@@ -7,6 +7,48 @@ import * as THREE from 'three';
 
 // ----------------- MODELS -----------------
 
+const Peasant = ({ pos, color, tool }: { pos: [number, number, number], color: string, tool?: boolean }) => (
+    <group position={pos}>
+      <mesh position={[0, 1.0, 0]} castShadow>
+        <sphereGeometry args={[0.3, 32, 32]} />
+        <meshPhysicalMaterial color="#FFE0BD" roughness={0.6} />
+      </mesh>
+      {/* Dirt on face */}
+      <mesh position={[0.1, 1.0, 0.28]} castShadow>
+        <sphereGeometry args={[0.08, 16, 16]} />
+        <meshPhysicalMaterial color="#a8a29e" roughness={1} />
+      </mesh>
+      {/* Eyes */}
+      <mesh position={[-0.1, 1.05, 0.28]} castShadow><sphereGeometry args={[0.03, 16, 16]} /><meshPhysicalMaterial color="#000000" /></mesh>
+      <mesh position={[0.1, 1.05, 0.28]} castShadow><sphereGeometry args={[0.03, 16, 16]} /><meshPhysicalMaterial color="#000000" /></mesh>
+      {/* Torso */}
+      <mesh position={[0, 0.5, 0]} castShadow>
+        <capsuleGeometry args={[0.2, 0.35, 32, 32]} />
+        <meshPhysicalMaterial color={color} roughness={0.9} />
+      </mesh>
+      {/* Arms */}
+      <mesh position={[-0.25, 0.55, 0]} rotation={[0, 0, -0.2]} castShadow>
+        <capsuleGeometry args={[0.06, 0.3, 16, 16]} />
+        <meshPhysicalMaterial color={color} roughness={0.9} />
+      </mesh>
+      <group position={[0.25, 0.55, 0]} rotation={[tool ? -0.5 : 0, 0, tool ? -0.2 : 0.2]}>
+        <mesh castShadow>
+          <capsuleGeometry args={[0.06, 0.3, 16, 16]} />
+          <meshPhysicalMaterial color={color} roughness={0.9} />
+        </mesh>
+        {tool && (
+          <mesh position={[0, -0.2, 0.2]} rotation={[Math.PI/2, 0, 0]} castShadow>
+            <cylinderGeometry args={[0.015, 0.015, 1.2, 8]} />
+            <meshPhysicalMaterial color="#3E2723" roughness={0.9} />
+          </mesh>
+        )}
+      </group>
+      {/* Legs */}
+      <mesh position={[-0.1, 0.15, 0]} castShadow><cylinderGeometry args={[0.07, 0.07, 0.3, 16]} /><meshPhysicalMaterial color="#292524" roughness={1} /></mesh>
+      <mesh position={[0.1, 0.15, 0]} castShadow><cylinderGeometry args={[0.07, 0.07, 0.3, 16]} /><meshPhysicalMaterial color="#292524" roughness={1} /></mesh>
+    </group>
+  );
+
 function Tree({ position }: { position: [number, number, number] }) {
   return (
     <group position={position}>
@@ -88,8 +130,8 @@ function Windmill() {
 
 function LandlordModel({ isFreed, isImprisoned = false }: { isFreed: boolean, isImprisoned?: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
-  
-  useFrame((state) => {
+
+  useFrame(() => {
     if (groupRef.current && isFreed && !isImprisoned) {
       groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, -8, 0.02);
       groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, 5, 0.02);
@@ -158,47 +200,6 @@ function PeasantMob({ isFreed }: { isFreed: boolean }) {
     }
   });
 
-  const Peasant = ({ pos, color, tool }: { pos: [number, number, number], color: string, tool?: boolean }) => (
-    <group position={pos}>
-      <mesh position={[0, 1.0, 0]} castShadow>
-        <sphereGeometry args={[0.3, 32, 32]} />
-        <meshPhysicalMaterial color="#FFE0BD" roughness={0.6} />
-      </mesh>
-      {/* Dirt on face */}
-      <mesh position={[0.1, 1.0, 0.28]} castShadow>
-        <sphereGeometry args={[0.08, 16, 16]} />
-        <meshPhysicalMaterial color="#a8a29e" roughness={1} />
-      </mesh>
-      {/* Eyes */}
-      <mesh position={[-0.1, 1.05, 0.28]} castShadow><sphereGeometry args={[0.03, 16, 16]} /><meshPhysicalMaterial color="#000000" /></mesh>
-      <mesh position={[0.1, 1.05, 0.28]} castShadow><sphereGeometry args={[0.03, 16, 16]} /><meshPhysicalMaterial color="#000000" /></mesh>
-      {/* Torso */}
-      <mesh position={[0, 0.5, 0]} castShadow>
-        <capsuleGeometry args={[0.2, 0.35, 32, 32]} />
-        <meshPhysicalMaterial color={color} roughness={0.9} />
-      </mesh>
-      {/* Arms */}
-      <mesh position={[-0.25, 0.55, 0]} rotation={[0, 0, -0.2]} castShadow>
-        <capsuleGeometry args={[0.06, 0.3, 16, 16]} />
-        <meshPhysicalMaterial color={color} roughness={0.9} />
-      </mesh>
-      <group position={[0.25, 0.55, 0]} rotation={[tool ? -0.5 : 0, 0, tool ? -0.2 : 0.2]}>
-        <mesh castShadow>
-          <capsuleGeometry args={[0.06, 0.3, 16, 16]} />
-          <meshPhysicalMaterial color={color} roughness={0.9} />
-        </mesh>
-        {tool && (
-          <mesh position={[0, -0.2, 0.2]} rotation={[Math.PI/2, 0, 0]} castShadow>
-            <cylinderGeometry args={[0.015, 0.015, 1.2, 8]} />
-            <meshPhysicalMaterial color="#3E2723" roughness={0.9} />
-          </mesh>
-        )}
-      </group>
-      {/* Legs */}
-      <mesh position={[-0.1, 0.15, 0]} castShadow><cylinderGeometry args={[0.07, 0.07, 0.3, 16]} /><meshPhysicalMaterial color="#292524" roughness={1} /></mesh>
-      <mesh position={[0.1, 0.15, 0]} castShadow><cylinderGeometry args={[0.07, 0.07, 0.3, 16]} /><meshPhysicalMaterial color="#292524" roughness={1} /></mesh>
-    </group>
-  );
 
   return (
     <group position={[-2.5, 0.2, 1.5]} ref={mobRef}>
@@ -267,7 +268,7 @@ function SilasModel({ isFreed }: { isFreed: boolean }) {
 
 function VillageElderModel({ isActive }: { isActive: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   useFrame(() => {
     if (groupRef.current) {
       if (isActive) {
@@ -328,7 +329,7 @@ function VillageElderModel({ isActive }: { isActive: boolean }) {
       {/* Legs */}
       <mesh position={[-0.12, 0.15, 0]} castShadow><cylinderGeometry args={[0.08, 0.08, 0.35, 32]} /><meshPhysicalMaterial color="#44403c" roughness={1} /></mesh>
       <mesh position={[0.12, 0.15, 0]} castShadow><cylinderGeometry args={[0.08, 0.08, 0.35, 32]} /><meshPhysicalMaterial color="#44403c" roughness={1} /></mesh>
-      
+
       {/* High Quality Realistic Rice Bags */}
       <group position={[1.5, 0, 0]}>
         {/* Bag 1 - Bottom Left */}
@@ -351,7 +352,7 @@ function VillageElderModel({ isActive }: { isActive: boolean }) {
           <mesh position={[0, 0.42, 0]} castShadow><coneGeometry args={[0.15, 0.15, 16]} /><meshPhysicalMaterial color="#c2a077" roughness={1} /></mesh>
           <mesh position={[0, 0.35, 0]} rotation={[Math.PI/2, 0, 0]} castShadow><torusGeometry args={[0.1, 0.02, 8, 16]} /><meshPhysicalMaterial color="#78350f" roughness={1} /></mesh>
         </group>
-        
+
         {/* Bag 4 - Standing up slightly behind */}
         <group position={[0, 0.42, -0.4]} rotation={[0.2, Math.PI / 3, 0.1]}>
           <mesh castShadow><capsuleGeometry args={[0.22, 0.4, 16, 16]} /><meshPhysicalMaterial color="#c2a077" roughness={1} /></mesh>
@@ -399,7 +400,7 @@ function PrisonCell({ isOpen = false }: { isOpen?: boolean }) {
         <boxGeometry args={[1, 6, 10]} />
         <meshStandardMaterial color="#111827" roughness={1} />
       </mesh>
-      
+
       {/* Static Iron bars */}
       {[...Array(10)].map((_, i) => {
         if (i >= 4 && i <= 6) return null; // Khoảng trống cho cửa
@@ -437,7 +438,7 @@ function PrisonCell({ isOpen = false }: { isOpen?: boolean }) {
         <mesh position={[0, 1.5, 0]} castShadow><cylinderGeometry args={[0.2, 0.3, 0.4, 16]} /><meshPhysicalMaterial color="#1e293b" /></mesh>
         <mesh position={[0, 0.6, 0]} castShadow><capsuleGeometry args={[0.22, 0.4, 16, 16]} /><meshPhysicalMaterial color="#334155" /></mesh>
         <mesh position={[0.3, 0.65, 0]} rotation={[0, 0, 0.2]} castShadow><capsuleGeometry args={[0.07, 0.3, 16, 16]} /><meshPhysicalMaterial color="#334155" /></mesh>
-        
+
         {/* Animated Arm */}
         <group position={[-0.3, 0.75, 0]} ref={guardArmRef}>
           <mesh position={[0, -0.15, 0]} castShadow><capsuleGeometry args={[0.07, 0.3, 16, 16]} /><meshPhysicalMaterial color="#334155" /></mesh>
@@ -455,9 +456,9 @@ function PrisonCell({ isOpen = false }: { isOpen?: boolean }) {
 
 export function VillageScene() {
   const currentNode = useDialogueStore((state) => state.currentNode);
-  
+
   // Logic: The landlord is defeated and Silas is freed ONLY AT OR AFTER 'ch1_resA'
-  const isFreed = currentNode?.id.startsWith('ch1_resA') || 
+  const isFreed = currentNode?.id.startsWith('ch1_resA') ||
                   currentNode?.id.startsWith('ch1_silas') ||
                   currentNode?.id.startsWith('ch1_sidequest') ||
                   currentNode?.id.startsWith('ch1_sq1');
@@ -467,7 +468,7 @@ export function VillageScene() {
   const isGameOver = currentNode?.id === 'ch1_resC' || currentNode?.id === 'ending';
 
   // Sidequest logic: Trưởng thôn Oros & Bao gạo
-  const isSidequest = currentNode?.id.startsWith('ch1_sidequest') || 
+  const isSidequest = currentNode?.id.startsWith('ch1_sidequest') ||
                       currentNode?.id.startsWith('ch1_sq');
 
   return (
@@ -498,7 +499,7 @@ export function VillageScene() {
         {!isImprisoned ? (
           <>
             <FloatingIsland />
-            
+
             <Tree position={[-2, 0, -2]} /> {/* Tree where Silas is tied */}
             <Tree position={[-3, 0, -5]} />
             <Tree position={[5, 0, -1]} />

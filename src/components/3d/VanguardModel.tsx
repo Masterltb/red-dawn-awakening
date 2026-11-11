@@ -1,14 +1,16 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import type { ThreeElements } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
 import * as THREE from 'three';
 
-export function VanguardModel(props: any) {
+export function VanguardModel(props: ThreeElements['group']) {
   const group = useRef<THREE.Group>(null);
-  
+
   useFrame((state) => {
     if (group.current) {
-      group.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.03 + (props.position?.[1] || 0.2);
+      const baseHeight = Array.isArray(props.position) ? props.position[1] : 0.2;
+      group.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.03 + baseHeight;
     }
   });
 
@@ -20,7 +22,7 @@ export function VanguardModel(props: any) {
           <sphereGeometry args={[0.35, 64, 64]} />
           <meshPhysicalMaterial color="#FFE0BD" roughness={0.3} clearcoat={0.2} />
         </mesh>
-        
+
         {/* Detailed Hair */}
         <group position={[0, 1.25, 0]}>
           <mesh position={[0, 0.15, -0.05]} castShadow>
@@ -46,13 +48,13 @@ export function VanguardModel(props: any) {
           <sphereGeometry args={[0.04, 32, 32]} />
           <meshPhysicalMaterial color="#000000" clearcoat={1.0} roughness={0.1} />
         </mesh>
-        
+
         {/* Torso - Military Coat */}
         <mesh position={[0, 0.6, 0]} castShadow>
           <capsuleGeometry args={[0.22, 0.4, 32, 32]} />
           <meshPhysicalMaterial color="#b91c1c" roughness={0.6} clearcoat={0.1} />
         </mesh>
-        
+
         {/* Collar */}
         <mesh position={[0, 0.9, 0]} rotation={[0.2, 0, 0]} castShadow>
           <cylinderGeometry args={[0.22, 0.25, 0.1, 32]} />
@@ -89,7 +91,7 @@ export function VanguardModel(props: any) {
           <capsuleGeometry args={[0.08, 0.3, 16, 16]} />
           <meshPhysicalMaterial color="#b91c1c" roughness={0.6} />
         </mesh>
-        
+
         {/* Hands */}
         <mesh position={[-0.35, 0.35, 0]} castShadow>
           <sphereGeometry args={[0.08, 16, 16]} />

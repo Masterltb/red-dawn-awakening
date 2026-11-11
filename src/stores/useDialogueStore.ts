@@ -29,7 +29,7 @@ export type DialogueNode = {
 interface DialogueState {
   currentNode: DialogueNode | null;
   nodesMap: Record<string, DialogueNode>;
-  
+
   loadChapter: (chapterNum: number) => void;
   advance: (nextNodeId?: string) => void;
   makeChoice: (option: DialogueOption) => void;
@@ -38,7 +38,7 @@ interface DialogueState {
 export const useDialogueStore = create<DialogueState>((set, get) => ({
   currentNode: null,
   nodesMap: {},
-  
+
   loadChapter: (chapterNum: number) => {
     let data;
     let startNode = 'ch1_start';
@@ -46,28 +46,28 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
     else if (chapterNum === 2) { data = chapter2Data; startNode = 'ch2_start'; }
     else if (chapterNum === 3) { data = chapter3Data; startNode = 'ch3_start'; }
     else if (chapterNum === 4) { data = chapter4Data; startNode = 'ch4_start'; }
-    
+
     if (!data) return;
 
     const map: Record<string, DialogueNode> = {};
-    data.nodes.forEach((n: any) => {
+    data.nodes.forEach((n: DialogueNode) => {
       map[n.id] = n;
     });
     set({ nodesMap: map, currentNode: map[startNode] });
     useGameStore.getState().setChapter(chapterNum as 1|2|3|4);
   },
-  
+
   advance: (nextNodeId?: string) => {
     const { currentNode, nodesMap, loadChapter } = get();
     if (!currentNode) return;
-    
-    let nextId = nextNodeId || currentNode.next;
-    
+
+    const nextId = nextNodeId || currentNode.next;
+
     if (nextId === 'ending') {
       const state = useGameStore.getState();
       // Điểm thất bại: Trọng số tư tưởng rất thấp (x10) cộng với lực lượng còn sót lại
       const failScore = Math.max(0, state.ideology * 10) + state.forces;
-      
+
       const localKey = 'binh_minh_do_player';
       const localDataStr = localStorage.getItem(localKey);
       let isNewHighScore = true;
@@ -77,7 +77,7 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
              isNewHighScore = false;
          }
       }
-      
+
       if (isNewHighScore) {
          submitScore(state.playerName, failScore);
       }
@@ -91,7 +91,7 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
       set({ currentNode: null });
       return;
     }
-    
+
     if (nextId === 'next_chapter') {
       const currentCh = useGameStore.getState().chapter;
       if (currentCh < 4) {
@@ -103,7 +103,7 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
     if (nextId === 'true_ending') {
       const state = useGameStore.getState();
       const finalScore = state.ideology * 100 + state.forces;
-      
+
       const localKey = 'binh_minh_do_player';
       const localDataStr = localStorage.getItem(localKey);
       let isNewHighScore = true;
@@ -113,12 +113,12 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
              isNewHighScore = false;
          }
       }
-      
+
       if (isNewHighScore) {
          submitScore(state.playerName, finalScore);
       }
       state.saveProgress(finalScore, 'true_ending');
-      
+
       state.setEndGameStatus({
         type: 'win',
         title: 'TRUE ENDING',
@@ -131,7 +131,7 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
     if (nextId === 'normal_ending') {
       const state = useGameStore.getState();
       const finalScore = state.ideology * 50 + state.forces;
-      
+
       const localKey = 'binh_minh_do_player';
       const localDataStr = localStorage.getItem(localKey);
       let isNewHighScore = true;
@@ -141,12 +141,12 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
              isNewHighScore = false;
          }
       }
-      
+
       if (isNewHighScore) {
          submitScore(state.playerName, finalScore);
       }
       state.saveProgress(finalScore, 'normal_ending');
-      
+
       state.setEndGameStatus({
         type: 'win',
         title: 'NORMAL ENDING',
@@ -162,14 +162,14 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
       set({ currentNode: null });
     }
   },
-  
+
   makeChoice: (option: DialogueOption) => {
     const { advance, currentNode } = get();
     // Update game stats
     const gameStore = useGameStore.getState();
     const newIdeology = Math.max(0, Math.min(100, gameStore.ideology + option.ideologyDelta));
     const newForces = Math.max(0, gameStore.forces + option.forcesDelta);
-    
+
     // Update Session Stats
     if (currentNode && currentNode.type === 'choice') {
        gameStore.updateSessionStat((stats) => {
@@ -193,9 +193,9 @@ export const useDialogueStore = create<DialogueState>((set, get) => ({
            return newStats;
        });
     }
-    
+
     useGameStore.setState({ ideology: newIdeology, forces: newForces });
-    
+
     if (newIdeology <= 0) {
        advance('ending'); // Lực lượng tư tưởng sụp đổ -> Game Over
     } else {
